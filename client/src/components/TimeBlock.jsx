@@ -5,12 +5,16 @@ export default function TimeBlock({ time, onClick }) {
   const [count, setCount] = useState(0);
 
   return (
-    <li key={time}>{time}
+    <li key={time}>
+      <div className="hourContainer">
+      {time}
       <button onClick={() => {
         onClick();
         setCount(count + 1); }}> + </button>
-        {count}
+      </div>
+      <div className="hourCount">
+      {count}
+      </div>
         </li>
   );
-
 }
