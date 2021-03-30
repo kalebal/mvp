@@ -23,6 +23,10 @@ exports.add = (req, res) => {
   })
 };
 
+
+//utility function for development
+//before use in production add duplicate validation
+//handle default open/close times
 exports.addPark = (req, res) => {
   let db = dbConnection.getDatabase();
   console.log('adding park');
