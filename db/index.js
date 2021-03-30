@@ -1,24 +1,25 @@
 const mongo = require('mongodb');
 
 const MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/dogparks";
+var url = "mongodb://localhost:27017/";
+var dbName = 'dogparks';
 
-let db = '';
-
-let connect = () => {
-    MongoClient.connect(url, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true },
-    function(err, database) {
-    if (err) {
-      throw err;
-    }
-    db = database;
-    console.log('connected to db!');
-  });
-}
+let _database;
 
 module.exports = {
-  connect: connect,
-  db: db
-}
+  connect(callback) {
+    MongoClient.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }, (err, client) => {
+      if (err) {
+        console.log('IN DBUTIL ERROR CONNECTING TO DB');
+        console.log(err);
+        return callback(err);
+      }
+      _database = client.db(dbName);
+      return callback(err, client);
+    });
+  },
+
+  getDatabase() {
+    return _database;
+  }
+};
