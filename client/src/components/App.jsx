@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import TimeList from './TimeList.jsx'
 
+const App = () => {
+  const [currentPark, setCurrentPark] = useState('test');
 
-class App extends React.Component {
-  constructor() {
-    super();
-  }
-  render() {
-    return (
-      <div>
-        <h1>React is runnning</h1>
-      </div>
-    )
-  }
-};
+  return (
+    <div className="main">
+      <h1>Park Pack</h1>
+      <h3>Carrboro Dog Park</h3>
+      <TimeList></TimeList>
+    </div>
+  );
+}
 
 export default App;
