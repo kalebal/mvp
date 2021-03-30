@@ -4,8 +4,8 @@ const dbConnection = require('../../db/index.js');
 
 exports.getParks = (req, res) => {
   let db = dbConnection.getDatabase();
-  res.status(200).send('hello');
-  db.find().then((results) => {
+  db.collection('parks').find().toArray()
+  .then((results) => {
     res.status(200).send(results);
   }).catch((err) => {
     console.log(err);
