@@ -13,13 +13,18 @@ exports.getParks = (req, res) => {
   });
 };
 
+//TODO: add a puppy to a park at a certain hour
+//currently increments total count
 exports.add = (req, res) => {
   let db = dbConnection.getDatabase();
-  let { name, hour } = req.body;
-  db.collection('parks').updateOne({ name: name}, { $inc: {totalAttendees: 1}}).then(() => {
-    res.status(200).send();
+  let { park_id } = req.params;
+  let { hour } = req.query;
+  db.collection('parks').findOneAndUpdate({ _id: 12 },
+    {$inc: {"totalAtendees": 1}})
+      .then(() => {
+    res.status(200).send('updated');
   }).catch((err) => {
-    res.status(400).send();
+    res.status(400).send(err);
   })
 };
 
