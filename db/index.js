@@ -21,5 +21,20 @@ module.exports = {
 
   getDatabase() {
     return _database;
+  },
+
+  getNextSequence(name = 'parkid') {
+    console.log('get next seq');
+
+    return _database.collection('counters').findOneAndUpdate(
+      { _id: name},
+      { $inc: { seq: 1 }},
+      { returnNewDocument: true }
+
+    ).then((newDoc) => {
+      console.log('new doc', newDoc);
+      return newDoc.value.seq;
+    });
   }
 };
+

@@ -29,20 +29,21 @@ exports.add = (req, res) => {
 //handle default open/close times
 exports.addPark = (req, res) => {
   let db = dbConnection.getDatabase();
-  console.log('adding park');
   let { name, address, openTime, closeTime } = req.body;
-  console.log(name, address, openTime, closeTime);
-  let newPark = {
-    name: name,
-    address: address,
-    openTime: openTime,
-    closeTime: closeTime
-  };
-  console.log(newPark);
-  db.collection('parks').insertOne(newPark).then((added) => {
-    res.status(200).send(added);
-  }).catch((err) => {
-    res.status(400).send(err);
+  let newId = dbConnection.getNextSequence().then((id) => {
+    let newPark = {
+      _id: id,
+      name: name,
+      address: address,
+      openTime: openTime,
+      closeTime: closeTime
+    };
+    db.collection('parks').insertOne(newPark)
+    .then((added) => {
+      res.status(200).send(added);
+    }).catch((err) => {
+      res.status(400).send(err);
+    });
   });
 
 };

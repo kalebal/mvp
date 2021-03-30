@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/parks', getParks);
 app.post('/parks', addPark);
-app.put('/parks', add);
+app.put('/parks/:park_id', add);
 
 const PORT = process.env.PORT || 3000;
 
