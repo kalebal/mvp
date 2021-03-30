@@ -17,10 +17,9 @@ exports.getParks = (req, res) => {
 //currently increments total count
 exports.add = (req, res) => {
   let db = dbConnection.getDatabase();
-  let { park_id } = req.params;
-  let { hour } = req.query;
+  let { park_id, hour } = req.params;
   db.collection('parks').findOneAndUpdate({ _id: 12 },
-    {$inc: {"totalAtendees": 1}})
+    {$inc: {"totalAttendees": 1}})
       .then(() => {
     res.status(200).send('updated');
   }).catch((err) => {
