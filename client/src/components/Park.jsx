@@ -2,14 +2,24 @@ import React, { useState, useEffect } from 'react';
 import TimeBlock from './TimeBlock.jsx';
 
 export default function Park({ data }) {
-  const [count, setCount] = useState(0);
+  let totalAttendees = parseInt(data.totalAttendees) || 0;
+  const [count, setCount] = useState(totalAttendees);
 
   let times = [];
 
   for (var i = parseInt(data.openTime); i < 12 + parseInt(data.closeTime); i++) {
-    times.push(`${i}:00 - ${i + 1}:00`);
+    times.push(i);
   }
 
+  const url = 'http://localhost:3000/parks';
+  const incrementParkAttendance = () => {
+    axios.put(`${url}`, {park_id: data._id, hour: 0})
+      .then((response) => {
+        const allParks = response.data;
+        getParks(allParks);
+      })
+      .catch(error => console.error(`Err: ${error}`));
+  }
 
   return (
     <div className="parkContainer">
