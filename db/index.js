@@ -17,6 +17,7 @@ let connect = () => {
     console.log('connected to db!');
   });
 }
+
 module.exports = {
   connect: connect,
   db: db
