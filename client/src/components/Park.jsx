@@ -17,7 +17,7 @@ export default function Park({ data }) {
     <h5>Today's Potential Friends: {count}</h5>
       <ul>
         {times.map((time) => {
-          return <TimeBlock time={time} onClick={() => setCount(count + 1)}/>;
+          return <TimeBlock key={time} time={time} onClick={() => setCount(count + 1)}/>;
         })}
       </ul>
     </div>
