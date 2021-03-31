@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { getParks, add, addPark } = require('./controllers/park');
+const { getParks, getOnePark, add, addPark } = require('./controllers/park');
 const dbConnection = require('../db/index');
 
 const app = express();
@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/parks', getParks);
+app.get('/parks/:park_id', getOnePark);
 app.post('/parks', addPark);
 app.put('/parks/:park_id', add);
 
