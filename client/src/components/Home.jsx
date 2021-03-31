@@ -9,16 +9,16 @@ import {
 } from "react-router-dom";
 
 export default function AllParks({ parks }) {
-  const url = 'http://localhost:3000/api/parks';
-
+  const url = '/api/parks';
+  console.log('home parks: ', parks)
   return (
     <div className="main">
       <h1>Park Pack</h1>
       <h3>Find a pack at</h3>
-      {parks.map(park => {
+      {Object.values(parks).map(park => {
         return (
-          <Link to={{ pathname:`/park/${park._id}`}}
-          key={park._id}>
+          <Link to={{ pathname:`/park/${park.id}`}}
+          key={park.id}>
           <div key={park.name}> {park.name}
           </div>
           </Link>

@@ -12,17 +12,20 @@ import axios from 'axios';
 
 
 export default function App() {
-  const [parks, getParks] = useState([]);
+  const [parks, getParks] = useState({});
   useEffect(() => {
     getAllParks();
   }, []);
 
-  const url = 'http://localhost:3000/api/parks';
+  const url = '/api/parks';
 
   const getAllParks = () => {
+    let allParks = {};
     axios.get(`${url}`)
       .then((response) => {
-        const allParks = response.data;
+        response.data.map((park) => {
+          allParks[park.id] = park;
+        });
         getParks(allParks);
       })
       .catch(error => console.error(`Err: ${error}`));
@@ -54,7 +57,7 @@ export default function App() {
           <Route exact path="/park/:id" render={(props) => {
           const id = props.match.params.id;
           console.log('render park for id', id, parks[id]);
-          return (<Park data={parks[id - 1]}></Park>);
+          return (<Park data={parks[id]}></Park>);
           }}>
 
           </Route>
