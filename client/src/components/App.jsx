@@ -39,9 +39,6 @@ export default function App() {
             <li className='nav-li'>
               <Link to="/allparks">All Parks</Link>
             </li>
-            <li className='nav-li'>
-              <Link to="/parks/1">1</Link>
-            </li>
           </ul>
         </nav>
 

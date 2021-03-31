@@ -17,7 +17,8 @@ export default function AllParks({ parks }) {
       <h3>Find a pack at</h3>
       {parks.map(park => {
         return (
-          <Link to={{ pathname:`/park/${park._id}`}}>
+          <Link to={{ pathname:`/park/${park._id}`}}
+          key={park._id}>
           <div key={park.name}> {park.name}
           </div>
           </Link>
