@@ -12,7 +12,7 @@ export default function Park({ data }) {
     times.push(i);
   }
 
-  const url = 'http://localhost:3000/parks';
+  const url = 'http://localhost:3000/api/parks';
   const incrementParkAttendance = (time) => {
     axios.put(`${url}/${data._id}`, {hour: time})
       .then((response) => {
