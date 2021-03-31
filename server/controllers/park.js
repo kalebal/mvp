@@ -31,19 +31,21 @@ exports.add = (req, res) => {
   let db = dbConnection.getDatabase();
   let { park_id } = req.params;
   let { hour } = req.query;
-  // db.collection('parks').findOneAndUpdate({ _id: park_id },
-  //   {
-  //     $inc: {"totalAttendees": 1},
-  //     $inc: { 'hourAttendance.$[hour]':  }
-  //   },
-  //   { arrayFilters: [{ "elem.hour":  { $eq: hour }}]})
-  //     .then(() => {
-  //   res.status(200).send('updated');
-  // }).catch((err) => {
-  //   res.status(400).send(err);
-  // })
+  hour = parseInt(hour);
+  park_id = parseInt(park_id);
+    console.log('hour:', hour, typeof hour);
+  db.collection('parks').findOneAndUpdate({ '_id': park_id },
+    {
+      $inc: {"totalAttendees": 1},
+      $inc: { 'hourlyAttendance.$[elem].attendance': 1}
+    },
+    {arrayFilters: [{'elem.hour': hour}]})
+      .then(() => {
+    res.status(200).send('updated');
+  }).catch((err) => {
+    res.status(400).send(err);
+  })
 };
-
 
 //utility function for development
 //before use in production add duplicate validation
@@ -62,7 +64,8 @@ exports.addPark = (req, res) => {
       address: address,
       openTime: openTime,
       closeTime: closeTime,
-      hourlyAttendance: hourlyAttendance
+      hourlyAttendance: hourlyAttendance,
+      totalAttendees: 0
     };
     db.collection('parks').insertOne(newPark)
     .then((added) => {
