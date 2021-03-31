@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TimeBlock from './TimeBlock.jsx';
+import axios from 'axios';
 
 export default function Park({ data }) {
   let totalAttendees = parseInt(data.totalAttendees) || 0;
@@ -12,11 +13,10 @@ export default function Park({ data }) {
   }
 
   const url = 'http://localhost:3000/parks';
-  const incrementParkAttendance = () => {
-    axios.put(`${url}`, {park_id: data._id, hour: 0})
+  const incrementParkAttendance = (time) => {
+    axios.put(`${url}/${data._id}`, {hour: time})
       .then((response) => {
         const allParks = response.data;
-        getParks(allParks);
       })
       .catch(error => console.error(`Err: ${error}`));
   }
@@ -27,7 +27,14 @@ export default function Park({ data }) {
     <h5>Today's Potential Friends: {count}</h5>
       <ul>
         {times.map((time) => {
-          return <TimeBlock key={time} time={time} onClick={() => setCount(count + 1)}/>;
+          return <TimeBlock
+          data={data.hourlyAttendance[time]}
+          key={time}
+          time={time}
+          onClick={() => {
+            setCount(count + 1);
+            incrementParkAttendance(time);
+          }}/>;
         })}
       </ul>
     </div>
