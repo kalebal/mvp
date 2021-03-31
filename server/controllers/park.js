@@ -30,10 +30,9 @@ exports.getOnePark = (req, res) => {
 exports.add = (req, res) => {
   let db = dbConnection.getDatabase();
   let { park_id } = req.params;
-  let { hour } = req.query;
+  let { hour } = req.body;
   hour = parseInt(hour);
   park_id = parseInt(park_id);
-    console.log('hour:', hour, typeof hour);
   db.collection('parks').findOneAndUpdate({ '_id': park_id },
     {
       $inc: {"totalAttendees": 1},
