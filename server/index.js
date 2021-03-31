@@ -8,10 +8,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('/parks', getParks);
-app.get('/parks/:park_id', getOnePark);
-app.post('/parks', addPark);
-app.put('/parks/:park_id', add);
+app.get('/api/parks', getParks);
+app.get('/api/parks/:park_id', getOnePark);
+app.post('/api/parks', addPark);
+app.put('/api/parks/:park_id', add);
 
 const PORT = process.env.PORT || 3000;
 
