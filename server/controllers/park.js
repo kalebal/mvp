@@ -31,17 +31,17 @@ exports.add = (req, res) => {
   let db = dbConnection.getDatabase();
   let { park_id } = req.params;
   let { hour } = req.query;
-  db.collection('parks').findOneAndUpdate({ _id: park_id },
-    {
-      $inc: {"totalAttendees": 1},
-      $addToSet: { 'hourAttendance': { 'hour': hour, 'num': 1 } }
-    },
-    { arrayFilters: [{ "elem.hour":  { $eq: hour }}]})
-      .then(() => {
-    res.status(200).send('updated');
-  }).catch((err) => {
-    res.status(400).send(err);
-  })
+  // db.collection('parks').findOneAndUpdate({ _id: park_id },
+  //   {
+  //     $inc: {"totalAttendees": 1},
+  //     $inc: { 'hourAttendance.$[hour]':  }
+  //   },
+  //   { arrayFilters: [{ "elem.hour":  { $eq: hour }}]})
+  //     .then(() => {
+  //   res.status(200).send('updated');
+  // }).catch((err) => {
+  //   res.status(400).send(err);
+  // })
 };
 
 
@@ -53,7 +53,7 @@ exports.addPark = (req, res) => {
   let { name, address, openTime, closeTime } = req.body;
   let hourlyAttendance = [];
   for (var i = 0; i < 21; i++) {
-    hourlyAttendance.push({[i]: 0});
+    hourlyAttendance.push({hour: i, attendance: 0});
   }
   let newId = dbConnection.getNextSequence().then((id) => {
     let newPark = {
