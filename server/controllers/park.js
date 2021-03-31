@@ -13,13 +13,30 @@ exports.getParks = (req, res) => {
   });
 };
 
+exports.getOnePark = (req, res) => {
+  let db = dbConnection.getDatabase();
+  let { park_id } = req.params;
+  db.collection('parks').findOne({_id: park_id})
+    .then((results) => {
+      res.status(200).send(results);
+    }).catch((err) => {
+      console.log(err);
+      res.status(404).send(err);
+    });
+};
+
 //TODO: add a puppy to a park at a certain hour
 //currently increments total count
 exports.add = (req, res) => {
   let db = dbConnection.getDatabase();
-  let { park_id, hour } = req.params;
-  db.collection('parks').findOneAndUpdate({ _id: 12 },
-    {$inc: {"totalAttendees": 1}})
+  let { park_id } = req.params;
+  let { hour } = req.query;
+  db.collection('parks').findOneAndUpdate({ _id: park_id },
+    {
+      $inc: {"totalAttendees": 1},
+      $addToSet: { 'hourAttendance': { 'hour': hour, 'num': 1 } }
+    },
+    { arrayFilters: [{ "elem.hour":  { $eq: hour }}]})
       .then(() => {
     res.status(200).send('updated');
   }).catch((err) => {
@@ -34,13 +51,18 @@ exports.add = (req, res) => {
 exports.addPark = (req, res) => {
   let db = dbConnection.getDatabase();
   let { name, address, openTime, closeTime } = req.body;
+  let hourlyAttendance = [];
+  for (var i = 0; i < 21; i++) {
+    hourlyAttendance.push({[i]: 0});
+  }
   let newId = dbConnection.getNextSequence().then((id) => {
     let newPark = {
       _id: id,
       name: name,
       address: address,
       openTime: openTime,
-      closeTime: closeTime
+      closeTime: closeTime,
+      hourlyAttendance: hourlyAttendance
     };
     db.collection('parks').insertOne(newPark)
     .then((added) => {
