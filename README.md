@@ -22,7 +22,7 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Summary ##
   Are you a puppy? Have you ever ran as fast as you could to a dog park, only to find you're the only one there? We can all agree, it's not a fun time. 
-  Pack Finder will make sure there's always a friend waiting for you on the other side of those double gates. Before you head out just pull up the site,
+  Park Pack will make sure there's always a friend waiting for you on the other side of those double gates. Before you head out just pull up the site,
   find your favorite park (or the one that's currently poppin') and say when you'll get there. You'll see how many others have made the same plans. 
 
 ## Problem ##
