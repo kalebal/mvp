@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { getParks, getOnePark, add, addPark } = require('./controllers/park');
+const { getParks, getOnePark,
+  getParkNear, add, addPark } = require('./controllers/park');
 const dbConnection = require('../db/index');
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/api/parks', getParks);
+app.get('/api/search/:address', getParkNear);
 app.get('/api/parks/:park_id', getOnePark);
 app.post('/api/parks', addPark);
 app.put('/api/parks/:park_id', add);
