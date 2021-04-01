@@ -1,4 +1,4 @@
-# Project Name #
+# Park Pack #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -15,9 +15,7 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
- 
-## Heading ##
-  Pack Finder
+
 
 ## Sub-Heading ##
   For dogs (and owners) who love bustling dog parks.
@@ -31,19 +29,24 @@ Once the project moves into development, the press release can be used as a touc
   Driving/walking for a while to reach your local dog park, only to be met with an empty field.
 
 ## Solution ##
-  Pack Finder displays a simple count of how many pups n owners will be at a specific park at a specific time.
+  Park Pack displays a simple count of how many pups n owners will be at a specific park at a specific time.
 
 ## Quote from You ##
-  "Pack Finder is a no-frills way to get the most out of your local dog park"
+  "Park Pack is a no-frills way to get the most out of your local dog park"
 
 ## How to Get Started ##
   1. Open the app on your favorite web browser.
   2. Find your favorite park from the list of ones nearby, or choose from the most popular.
   3. Check the daily rundown to see what the best time of day is to head over.
-  4. Let others know you'll be there! Park Finder doesn't ask for any info, just what time you'll be around.
+  4. Let others know you'll be there! Park Pack doesn't ask for any info, just what time you'll be around.
 
-## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+## Contributions ##
+Reach out if you'd like to contribute! 
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+## Future Features ##
+Geolocation search
+Sort by state
+Add features to parks: agility courses, puppy water fountains, etc
+Integrate with Google Maps API to provide directions
+Separate dog count by large/small where there are separate parks
+UI refactoring for mobile compatibility
