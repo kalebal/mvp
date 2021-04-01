@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 
 export default function TimeBlock({ time, onClick, data }) {
-  const [count, setCount] = useState(data.attendance);
+  let attendance = 0;
+  console.log(data);
+  if (data && data.attendance) {
+    attendance = data.attendance;
+  }
+  const [count, setCount] = useState(attendance);
   const [showButton, toggleButton] = useState(true);
   let timeText = `${time}:00 - ${time + 1}:00`;
 
@@ -11,6 +16,7 @@ export default function TimeBlock({ time, onClick, data }) {
       <div className="hourContainer">
       {timeText}
       <button
+      className="hourButton"
       disabled={!showButton}
       onClick={() => {
         toggleButton();

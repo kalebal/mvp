@@ -4,19 +4,13 @@ import axios from 'axios';
 
 
 export default function AllParks({ parks }) {
-  if (Object.entries(parks)) {
-    return (
-      <>
-      {Object.values(parks).map(park => {
-        return <Park data={park} key={park.id} />
-      })}
-      </>
-    )
-  }
+  console.log('all parks', typeof parks);
   return (
-      <div className="main">
-        <h1 parks={parks}>Park Pack</h1>
-      </div>
-    );
-
+    <div className="main">
+      <h1 parks={parks}>Park Pack</h1>
+      { Object.values(parks).map(park => {
+        return <Park data={park} key={park._id} />
+      })}
+    </div>
+  );
 }

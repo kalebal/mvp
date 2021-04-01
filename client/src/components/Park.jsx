@@ -14,13 +14,12 @@ export default function Park({ data }) {
 
   const url = '/api/parks';
   const incrementParkAttendance = (time) => {
-    axios.put(`${url}/${data._id}`, {hour: time})
+    axios.put(`${url}/${data.id}`, {hour: time})
       .then((response) => {
         const allParks = response.data;
       })
       .catch(error => console.error(`Err: ${error}`));
   }
-
   return (
     <div className="parkContainer">
     <h3>{data.name}</h3>

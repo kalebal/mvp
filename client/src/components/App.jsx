@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  Switch, Route, Link
 } from 'react-router-dom';
 import AllParks from './AllParks.jsx';
 import Park from './Park.jsx';
@@ -13,27 +11,31 @@ import axios from 'axios';
 
 export default function App() {
   const [parks, getParks] = useState({});
-  useEffect(() => {
-    getAllParks();
-  }, []);
+  const [parkLocations, getParkLocations] = useState({});
+  useEffect(() => { getAllParks(); }, []);
 
   const url = '/api/parks';
-
   const getAllParks = () => {
-    let allParks = {};
+    let allParkLocations = {};
+    let allParks = [];
     axios.get(`${url}`)
       .then((response) => {
         response.data.map((park) => {
+          if(!allParkLocations[park.county]){
+            allParkLocations[park.county] = [];
+          }
+          allParkLocations[park.county].push(park);
           allParks[park.id] = park;
         });
-        getParks(allParks);
+        getParks(allParks)
+        getParkLocations(allParkLocations);
       })
       .catch(error => console.error(`Err: ${error}`));
   }
-  console.log(parks)
+
   return (
     <Router>
-      <div>
+      <div id='router'>
         <nav>
           <ul id='nav-ul'>
             <li className='nav-li'>
@@ -48,18 +50,16 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route exact path="/allparks">
+          <Route path="/allparks">
             <AllParks parks={parks}/>
-          </Route>
-          <Route exact path="/">
-            <Home parks={parks}/>
           </Route>
           <Route exact path="/park/:id" render={(props) => {
           const id = props.match.params.id;
-          console.log('render park for id', id, parks[id]);
           return (<Park data={parks[id]}></Park>);
           }}>
-
+          </Route>
+          <Route exact path="/">
+            <Home parkLocations={parkLocations} parks={parks}/>
           </Route>
         </Switch>
       </div>
