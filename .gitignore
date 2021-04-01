@@ -1,6 +1,6 @@
 node_modules
 main.js
 .DS_Store
-bundle.js
+*/bundle.js
 .env
 db.config.js
