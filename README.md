@@ -40,6 +40,8 @@ Once the project moves into development, the press release can be used as a touc
   3. Check the daily rundown to see what the best time of day is to head over.
   4. Let others know you'll be there! Park Pack doesn't ask for any info, just what time you'll be around.
 
+![Screen Shot 2021-04-01 at 11 10 34 AM](https://user-images.githubusercontent.com/38890546/113315237-130c5300-92db-11eb-9b73-166bb4cd6e87.png)
+
 ## Contributions ##
 Reach out if you'd like to contribute! 
 
