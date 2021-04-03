@@ -21,9 +21,9 @@ Once the project moves into development, the press release can be used as a touc
   For dogs (and owners) who love bustling dog parks.
 
 ## Summary ##
-  Are you a puppy? Have you ever ran as fast as you could to a dog park, only to find you're the only one there? We can all agree, it's not a fun time. 
+  Are you a puppy? Have you ever ran as fast as you could to a dog park, only to find you're the only one there?
   Park Pack will make sure there's always a friend waiting for you on the other side of those double gates. Before you head out just pull up the site,
-  find your favorite park (or the one that's currently poppin') and say when you'll get there. You'll see how many others have made the same plans. 
+  find your favorite park (or pick from the day's most popular) and say when you'll get there. You'll see how many others have the same plans. 
 
 ## Problem ##
   Driving/walking for a while to reach your local dog park, only to be met with an empty field.
@@ -36,7 +36,7 @@ Once the project moves into development, the press release can be used as a touc
 
 ## How to Get Started ##
   1. Open the app on your favorite web browser.
-  2. Find your favorite park from the list of ones nearby, or choose from the most popular.
+  2. Search for your favorite park or choose from the most popular.
   3. Check the daily rundown to see what the best time of day is to head over.
   4. Let others know you'll be there! Park Pack doesn't ask for any info, just what time you'll be around.
 
@@ -46,9 +46,8 @@ Once the project moves into development, the press release can be used as a touc
 Reach out if you'd like to contribute! 
 
 ## Future Features ##
-Geolocation search
 Sort by state
-Add features to parks: agility courses, puppy water fountains, etc
+Add amenity list to parks: agility courses, puppy water fountains, etc
 Integrate with Google Maps API to provide directions
 Separate dog count by large/small where there are separate parks
 UI refactoring for mobile compatibility
