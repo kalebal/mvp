@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 export default function TimeBlock({ time, onClick, data }) {
+  // todo: add default prop to handle no attendance
   let attendance = 0;
   console.log(data);
   if (data && data.attendance) {

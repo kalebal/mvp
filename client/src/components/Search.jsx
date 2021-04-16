@@ -10,7 +10,9 @@ import {
 
 export default function Search() {
   const { inputs, handleChange, handleSubmit } = useInput(search);
-
+  // todo: connect to API
+  // return list of matching park names
+  // add park list below search
   const search = () => {
     console.log('search');
   }

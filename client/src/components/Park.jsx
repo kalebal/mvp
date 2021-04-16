@@ -7,12 +7,13 @@ export default function Park({ data }) {
   const [count, setCount] = useState(totalAttendees);
 
   let times = [];
-
+  // get list of hours the park is open
   for (var i = parseInt(data.openTime); i < 12 + parseInt(data.closeTime); i++) {
     times.push(i);
   }
 
   const url = '/api/parks';
+  // handler for + click
   const incrementParkAttendance = (time) => {
     axios.put(`${url}/${data.id}`, {hour: time})
       .then((response) => {
