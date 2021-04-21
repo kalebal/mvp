@@ -1,36 +1,28 @@
-const geofire = require('geofire-common');
 const axios = require('axios');
-const config = require('../../db.config.js')
+const config = require('../../db.config.js');
 
-let baseURL = 'http://api.positionstack.com/v1/forward';
+const baseURL = 'http://api.positionstack.com/v1/forward';
 exports.getGeocoding = (address) => {
-  let params = {
+  const params = {
     access_key: config.POSITION_APIKEY,
     query: address,
-    limit: 1
-  }
-  return axios.get(baseURL, {params: params})
-  .then((res) => {
-    let { latitude, longitude } = res.data.data[0];
-    return { lat: latitude, lng: longitude };
-  })
-  .catch((err) => {
-    return err;
-  });
-}
+    limit: 1,
+  };
+  return axios.get(baseURL, { params })
+    .then((res) => {
+      const { latitude, longitude } = res.data.data[0];
+      return { lat: latitude, lng: longitude };
+    })
+    .catch((err) => err);
+};
 
 exports.getCounty = (address) => {
-  let params = {
+  const params = {
     access_key: config.POSITION_APIKEY,
     query: address,
-    limit: 1
-  }
-  return axios.get(baseURL, { params: params })
-    .then((res) => {
-      console.log(res.data.data[0])
-      return res.data.data[0]['county'];
-    })
-    .catch((err) => {
-      return err;
-    });
-}
+    limit: 1,
+  };
+  return axios.get(baseURL, { params })
+    .then((res) => res.data.data[0].county)
+    .catch((err) => err);
+};

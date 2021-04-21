@@ -1,59 +1,50 @@
-const dbConnection = require('../../db/index.js');
 const firebase = require('firebase/app');
 const firestore = require('firebase/firestore');
 const geofire = require('geofire-common');
+const dbConnection = require('../../db/index.js');
 const { getGeocoding, getCounty } = require('./location');
 
 exports.getParks = (req, res) => {
-  let db = dbConnection.getDatabase();
-  parksRef = db.collection('parks');
+  const db = dbConnection.getDatabase();
+  const parksRef = db.collection('parks');
 
   parksRef.get()
-  .then((snapshot) => {
-    const data = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return data;
-  }).then((data) => {
-    res.status(200).send(data);
-  }).catch((err) => {
-    res.status(400).send('Error retrieving Parks:', err);
-  });
-};
-
-exports.getOnePark = (req, res) => {
-
-  let db = dbConnection.getDatabase();
-  let { park_id } = req.params;
-  parksRef = db.collection('parks');
-  parksRef.get(park_id)
-    .then((doc) => {
-      if (!doc.exists) return;
-      console.log("park data:", doc.data());
-      return doc;
-    }).then((doc) => {
-      res.status(200).send(doc);
+    .then((snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      return data;
+    }).then((data) => {
+      res.status(200).send(data);
     }).catch((err) => {
-      res.status(400).send('Error retrieving Park:' + err);
+      res.status(400).send('Error retrieving Parks:', err);
     });
 };
 
-//TODO: add a puppy to a park at a certain hour
-//currently increments total count
-exports.add = (req, res) => {
-  let db = dbConnection.getDatabase();
-  let { park_id } = req.params;
-  let { hour } = req.body;
-  hour = parseInt(hour);
+exports.getOnePark = (req, res) => {
+  const db = dbConnection.getDatabase();
+  const { park_id } = req.params;
+  const parksRef = db.collection('parks');
+  parksRef.get(park_id)
+    .then((doc) => {
+      res.status(200).send(doc);
+    }).catch((err) => {
+      res.status(400).send(`Error retrieving Park:${err}`);
+    });
+};
 
-  let update = {};
+exports.add = (req, res) => {
+  const db = dbConnection.getDatabase();
+  const { park_id } = req.params;
+  let { hour } = req.body;
+  hour = parseInt(hour, 10);
+
+  const update = {};
   update[`hourlyAttendance.${hour}.attendance`] = firebase.firestore.FieldValue.increment(1);
   update.totalAttendees = firebase.firestore.FieldValue.increment(1);
-  var parkRef = db.collection("parks").doc(park_id);
-  parkRef.update(update).then((doc) => {
-    return doc;
-  }).then((doc) => {
+  const parkRef = db.collection('parks').doc(park_id);
+  parkRef.update(update).then((doc) => doc).then((doc) => {
     res.status(200).send(doc);
   }).catch((err) => {
     res.status(400).send(`Error retrieving Park: ${err}`);
@@ -61,44 +52,43 @@ exports.add = (req, res) => {
 };
 
 exports.addPark = (req, res) => {
-  let db = dbConnection.getDatabase();
-  let { name, address, openTime, closeTime } = req.body.data;
-  let hourlyAttendance = [];
-  for (var i = 0; i < 21; i++) {
-    hourlyAttendance.push({hour: i, attendance: 0});
+  const db = dbConnection.getDatabase();
+  const {
+    name, address, openTime, closeTime,
+  } = req.body.data;
+  const hourlyAttendance = [];
+  for (let i = 0; i < 21; i++) {
+    hourlyAttendance.push({ hour: i, attendance: 0 });
   }
   getCounty(address).then((county) => {
-    let newPark = {
-      name: name,
-      address: address,
-      county: county,
-      openTime: openTime,
-      closeTime: closeTime,
-      hourlyAttendance: hourlyAttendance,
-      totalAttendees: 0
+    const newPark = {
+      name,
+      address,
+      county,
+      openTime,
+      closeTime,
+      hourlyAttendance,
+      totalAttendees: 0,
     };
-    console.log(newPark)
     db.collection('parks').add(newPark)
-    .then((ref) => {
-      console.log('added doc w/ id: ', ref.id);
-      res.status(200).send(ref);
-    }).catch((err) => {
-      res.status(400).send(err);
-    });
-  })
-
+      .then((ref) => {
+        res.status(200).send(ref);
+      }).catch((err) => {
+        res.status(400).send(err);
+      });
+  });
 };
 
 exports.getParkNear = (req, res) => {
-  let db = dbConnection.getDatabase();
+  const db = dbConnection.getDatabase();
 
-  let { address } = req.params;
-  //get latitude n longitude of address
+  const { address } = req.params;
+  // get latitude n longitude of address
   getGeocoding(address)
     .then((data) => {
-      let center = [parseInt(data.lat), parseInt(data.lng)];
-      let radiusInM = 50000 * 100000;
-      //bounds is a start/end pair
+      const center = [parseInt(data.lat, 10), parseInt(data.lng, 10)];
+      const radiusInM = 50000 * 100000;
+      // bounds is a start/end pair
       const bounds = geofire.geohashQueryBounds(center, radiusInM);
 
       const promises = [];
@@ -108,7 +98,7 @@ exports.getParkNear = (req, res) => {
           .startAt(b[0])
           .endAt(b[1]);
         promises.push(q.get());
-      }
+      };
 
       Promise.all(promises).then((snapshots) => {
         const matchingDocs = [];
@@ -124,8 +114,8 @@ exports.getParkNear = (req, res) => {
         return matchingDocs;
       }).then((matchingDocs) => {
         res.status(200).send(matchingDocs);
-      })
+      });
     }).catch((err) => {
-      res.status(400).send('Error retrieving Parks:' + err);
+      res.status(400).send(`Error retrieving Parks:${err}`);
     });
-}
+};
