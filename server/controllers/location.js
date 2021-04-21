@@ -1,10 +1,9 @@
 const axios = require('axios');
-const config = require('../../db.config.js');
 
 const baseURL = 'http://api.positionstack.com/v1/forward';
 exports.getGeocoding = (address) => {
   const params = {
-    access_key: config.POSITION_APIKEY,
+    access_key: process.env.POSITION_APIKEY,
     query: address,
     limit: 1,
   };
@@ -18,7 +17,7 @@ exports.getGeocoding = (address) => {
 
 exports.getCounty = (address) => {
   const params = {
-    access_key: config.POSITION_APIKEY,
+    access_key: process.env.POSITION_APIKEY,
     query: address,
     limit: 1,
   };
