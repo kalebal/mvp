@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Switch, Route, Link
+  Switch, Route, Link,
 } from 'react-router-dom';
+import axios from 'axios';
 import AllParks from './AllParks.jsx';
 import Park from './Park.jsx';
 import Home from './Home.jsx';
-import axios from 'axios';
-
 
 export default function App() {
   const [parks, getParks] = useState({});
@@ -16,32 +15,32 @@ export default function App() {
 
   const url = '/api/parks';
   const getAllParks = () => {
-    let allParkLocations = {};
-    let allParks = [];
+    const allParkLocations = {};
+    const allParks = [];
     axios.get(`${url}`)
       .then((response) => {
-        response.data.map((park) => {
-          if(!allParkLocations[park.county]){
+        response.data.forEach((park) => {
+          if (!allParkLocations[park.county]) {
             allParkLocations[park.county] = [];
           }
           allParkLocations[park.county].push(park);
           allParks[park.id] = park;
         });
-        getParks(allParks)
+        getParks(allParks);
         getParkLocations(allParkLocations);
       })
-      .catch(error => console.error(`Err: ${error}`));
-  }
+      .catch((error) => console.error(`Err: ${error}`));
+  };
 
   return (
     <Router>
-      <div id='router'>
+      <div id="router">
         <nav>
-          <ul id='nav-ul'>
-            <li className='nav-li'>
+          <ul id="nav-ul">
+            <li className="nav-li">
               <Link to="/">Home</Link>
             </li>
-            <li className='nav-li'>
+            <li className="nav-li">
               <Link to="/allparks">All Parks</Link>
             </li>
           </ul>
@@ -53,11 +52,14 @@ export default function App() {
           <Route path="/allparks">
             <AllParks parks={parks}/>
           </Route>
-          <Route exact path="/park/:id" render={(props) => {
-          const id = props.match.params.id;
-          return (<Park data={parks[id]}></Park>);
-          }}>
-          </Route>
+          <Route
+            exact
+            path="/park/:id"
+            render={(props) => {
+              const { id } = props.match.params;
+              return (<Park data={parks[id]} />);
+            }}
+          />
           <Route exact path="/">
             <Home parkLocations={parkLocations} parks={parks}/>
           </Route>

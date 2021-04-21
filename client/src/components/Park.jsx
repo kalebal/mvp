@@ -1,42 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import TimeBlock from './TimeBlock.jsx';
+import React, { useState } from 'react';
 import axios from 'axios';
+import TimeBlock from './TimeBlock.jsx';
 
 export default function Park({ data }) {
-  let totalAttendees = parseInt(data.totalAttendees) || 0;
+  const totalAttendees = parseInt(data.totalAttendees, 10) || 0;
   const [count, setCount] = useState(totalAttendees);
 
-  let times = [];
+  const times = [];
   // get list of hours the park is open
-  for (var i = parseInt(data.openTime); i < 12 + parseInt(data.closeTime); i++) {
+  for (let i = parseInt(data.openTime, 10); i < 12 + parseInt(data.closeTime, 10); i += 1) {
     times.push(i);
   }
 
   const url = '/api/parks';
   // handler for + click
   const incrementParkAttendance = (time) => {
-    axios.put(`${url}/${data.id}`, {hour: time})
+    axios.put(`${url}/${data.id}`, { hour: time })
       .then((response) => {
         const allParks = response.data;
       })
-      .catch(error => console.error(`Err: ${error}`));
-  }
+      .catch((error) => console.error(`Err: ${error}`));
+  };
   return (
     <div className="parkContainer">
-    <h3>{data.name}</h3>
-    <h5>Today's Potential Friends: {count}</h5>
+      <h3>{data.name}</h3>
+      <h5>
+        Today's Potential Friends:
+        {count}
+      </h5>
       <ul>
-        {times.map((time) => {
-          return <TimeBlock
-          data={data.hourlyAttendance[time]}
-          key={time}
-          time={time}
-          onClick={() => {
-            setCount(count + 1);
-            incrementParkAttendance(time);
-          }}/>;
-        })}
+        {times.map((time) => (
+          <TimeBlock
+            data={data.hourlyAttendance[time]}
+            key={time}
+            time={time}
+            onClick={() => {
+              setCount(count + 1);
+              incrementParkAttendance(time);
+            }}
+          />
+        ))}
       </ul>
     </div>
-  )
+  );
 }
