@@ -17,9 +17,8 @@ Once the project moves into development, the press release can be used as a touc
  -->
 
 
-## Sub-Heading ##
-  For dogs (and owners) who love bustling dog parks.
-
+## For dogs (and owners) who love bustling dog parks. ##
+  
 ## Summary ##
   Are you a puppy? Have you ever ran as fast as you could to a dog park, only to find you're the only one there?
   Park Pack will make sure there's always a friend waiting for you on the other side of those double gates. Before you head out just pull up the site,
@@ -41,8 +40,8 @@ Once the project moves into development, the press release can be used as a touc
 Reach out if you'd like to contribute! 
 
 ## Future Features ##
-1. Sort by state
+1. Expand geo-queries to sort by state/zipcode
 2. Add amenity list to parks: agility courses, puppy water fountains, etc
 3. Integrate with Google Maps API to provide directions
-4. Separate dog count by large/small where there are separate parks
+4. Separate dog count by large/small when there are separate parks
 5. UI refactoring for mobile compatibility
