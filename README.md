@@ -34,20 +34,15 @@ Once the project moves into development, the press release can be used as a touc
 ## Quote from You ##
   "Park Pack is a no-frills way to get the most out of your local dog park"
 
-## How to Get Started ##
-  1. Open the app on your favorite web browser.
-  2. Search for your favorite park or choose from the most popular.
-  3. Check the daily rundown to see what the best time of day is to head over.
-  4. Let others know you'll be there! Park Pack doesn't ask for any info, just what time you'll be around.
-
+## View ##
 ![Screen Shot 2021-04-01 at 11 10 34 AM](https://user-images.githubusercontent.com/38890546/113315237-130c5300-92db-11eb-9b73-166bb4cd6e87.png)
 
 ## Contributions ##
 Reach out if you'd like to contribute! 
 
 ## Future Features ##
-Sort by state
-Add amenity list to parks: agility courses, puppy water fountains, etc
-Integrate with Google Maps API to provide directions
-Separate dog count by large/small where there are separate parks
-UI refactoring for mobile compatibility
+1. Sort by state
+2. Add amenity list to parks: agility courses, puppy water fountains, etc
+3. Integrate with Google Maps API to provide directions
+4. Separate dog count by large/small where there are separate parks
+5. UI refactoring for mobile compatibility
